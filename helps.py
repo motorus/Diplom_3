@@ -1,9 +1,7 @@
 import random
-
 import allure
 import requests
 from faker import Faker
-
 from urls import EndPoints
 
 
