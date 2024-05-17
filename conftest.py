@@ -2,24 +2,10 @@ import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
-from selenium.webdriver.firefox.service import Service
-
 from locators.login_page_locators import LoginLocators
-
 from helps import NewUserCreds, User
 from urls import URLS
-"""
-@pytest.fixture(scope='function')
-def driver():
 
-    options = ChromeOptions()
-    options.add_argument('--windows-size=1024,768')
-    driver1 = webdriver.Chrome(options=options)
-    driver1.maximize_window()
-
-    yield driver1
-    driver1.quit()
-"""
 
 @pytest.fixture(scope='function', params=["chrome", "firefox"])
 def driver(request):
@@ -32,8 +18,8 @@ def driver(request):
     elif request.param == "firefox":
         options = FirefoxOptions()
         options.add_argument('--windows-size=1024,768')
-        service = Service(executable_path='/home/user/Downloads/WebDriver/geckodriver') # убрать перед реквестом
-        driver = webdriver.Firefox(options=options, service=service)
+
+        driver = webdriver.Firefox(options=options)
         driver.maximize_window()
 
     yield driver
