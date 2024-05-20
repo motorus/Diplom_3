@@ -3,11 +3,6 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.firefox.options import Options as FirefoxOptions
 from helps import NewUserCreds, User
-from pages.base_page import BasePage
-
-
-from selenium.webdriver.firefox.service import Service
-
 from pages.main_page import MainPage
 
 
@@ -21,9 +16,8 @@ def driver(request):
         driver.maximize_window()
     elif request.param == "firefox":
         options = FirefoxOptions()
-        service = Service(executable_path='/home/user/Downloads/WebDriver/geckodriver')
         options.add_argument('--windows-size=1024,768')
-        driver = webdriver.Firefox(options=options, service=service)
+        driver = webdriver.Firefox(options=options)
         driver.maximize_window()
 
     yield driver
