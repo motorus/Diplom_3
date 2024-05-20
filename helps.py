@@ -30,29 +30,10 @@ class User:
         return requests.post(EndPoints.create_user, data=user_data)
 
     @staticmethod
-    @allure.step("Логин существующего пользователя")
-    def login_user(user_data):
-        return requests.post(EndPoints.login_user, data=user_data)
-
-    @staticmethod
     @allure.step("Удаление пользователя")
     def delete_user(user_token):
         headers = {"Authorization": user_token}
-        response = requests.delete(EndPoints.delete_user, headers=headers)
-        return response
-
-    @staticmethod
-    @allure.step("Получение данных пользователя")
-    def get_user_info(user_token):
-        headers = {"Authorization": user_token}
-        response = requests.get(EndPoints.delete_user, headers=headers)
-        return response
-
-    @staticmethod
-    @allure.step("Обновление данных пользователя")
-    def update_user(user_token, new_data):
-        headers = {"Authorization": user_token}
-        response = requests.patch(EndPoints.update_user, headers=headers, data=new_data)
+        response = requests.delete(EndPoints.login_user, headers=headers)
         return response
 
 
@@ -89,10 +70,3 @@ class Order:
             ingredients_dict[ingredient["type"]] = current_hashs
             ingredient_list.append(ingredient["_id"])
         return ingredients_dict, ingredient_list
-
-    @staticmethod
-    @allure.step("Получение списка закаов")
-    def get_orders(token=""):
-        headers = {"Authorization": token}
-        response = requests.get(EndPoints.get_orders, headers=headers)
-        return response

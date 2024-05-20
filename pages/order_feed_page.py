@@ -19,7 +19,6 @@ class OrderFeed(BasePage):
     @allure.description("1. Создаем заказ через API и получаем его ID"
                         "2. Открываем страницу с лентой заказов"
                         "3. Находим заказ по ID")
-
     def check_private_orders_in_feed(self, new_user):
         token = new_user[0].json()["accessToken"]
         ingredients = Order().create_burger()  # получаем список ингредиентов для бургера

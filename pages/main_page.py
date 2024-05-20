@@ -1,25 +1,22 @@
-from selenium.webdriver.support import expected_conditions as EC
 import allure
-from selenium.webdriver.support.wait import WebDriverWait
 from locators.main_page_locators import MainPageLocators
 from pages.base_page import BasePage
-from locators.feed_page_locators import FeedLocators
-from locators.account_page_locators import AccountLocators
 from urls import URLS
 import helps
-
 
 class MainPage(BasePage):
 
     @allure.step("Клик по кнопке личный кабинет")
     def click_to_personal_area(self):
         self.click_to_element(MainPageLocators.PERSONAL_AREA_BUTTON)
-        return self.wait_and_find_element(AccountLocators.PERSONAL_AREA_TEXT)
+        self.wait_for_load_window(URLS.PERSONAL_AREA)
+        return self.return_page_url()
 
     @allure.step("Клик по кнопке 'Лента заказов'")
     def click_to_orders_feed(self):
         self.click_to_element(MainPageLocators.ORDERS_FEED_BUTTON)
-        return self.get_text_locator(FeedLocators.COMPLETED_ALL_TIME_TEXT)
+        self.wait_for_load_window(URLS.ORDER_FEED)
+        return self.return_page_url()
 
     @allure.step("Клик по ингредиенту")
     def click_to_ingredient(self, ingredient_id):
@@ -33,7 +30,8 @@ class MainPage(BasePage):
         self.click_to_element(MainPageLocators.BUN_R2_D3)
 
         self.click_to_element(MainPageLocators.CLOSE_INGREDIENT_DETAILS_BUTTON)
-        WebDriverWait(self.driver, 3).until(EC.invisibility_of_element_located(MainPageLocators.INGREDIENT_DETAILS_TEXT))
+        self.wait_element_clickable(MainPageLocators.INGREDIENT_DETAILS_TEXT)
+
         return self.check_element_is_displayed(MainPageLocators.ORDERS_FEED_BUTTON)
 
     @allure.step("Добавление ингредиента 'Флюоресцентная булка R2-D3 'в заказ")

@@ -3,6 +3,9 @@ from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.common.exceptions import ElementClickInterceptedException
 from selenium.webdriver import ActionChains
+from selenium.webdriver.support import expected_conditions as EC
+from locators.login_page_locators import LoginLocators
+from urls import URLS
 
 
 class BasePage:
@@ -29,14 +32,6 @@ class BasePage:
         WebDriverWait(self.driver, 5).until((expected_conditions.element_to_be_clickable(locator)))
         element = self.driver.find_element(*locator)
 
-        #  self.driver.execute_script("arguments[0].click();", element)  # этот костыль здесь почему то не работает
-
-        # костыль который позволляет проходить тестам на ФФ. Связано с тем что какое то время поверх найденного
-        # элемента располагается еще 1 элемент. Невидимый. Но вызывает ошибку:
-        # selenium.common.exceptions.ElementClickInterceptedException: Message: Element < button
-        # class ="button_button__33qZ0 button_button_type_primary__1O7Bx button_button_size_medium__3zxIa" >
-        # is not clickable at point (957, 549) because another element
-        # < div class ="Modal_modal_overlay__x2ZCr" > obscures it
         attempt_count = 1000000
         for i in range(attempt_count):
             try:
@@ -69,3 +64,25 @@ class BasePage:
         element_to = self.wait_and_find_element(locator_to)
         actions_chain = ActionChains(self.driver)
         actions_chain.drag_and_drop(element_from, element_to).pause(2).perform()
+
+    @allure.step("Выполним скрипт")
+    def execute_script(self, script, arg):
+        self.driver.execute_script(script, arg)
+
+    @allure.step("Авторизация пользователя")
+    def login_user(self, new_user):
+        base_page = BasePage(self.driver)
+        base_page.open_page(URLS.LOGIN)
+        base_page.send_keys_to_locator(LoginLocators.EMAIL_FIELD, new_user[1]["email"])
+        base_page.send_keys_to_locator(LoginLocators.PASSWORD_FIELD, new_user[1]["password"])
+
+        element = base_page.wait_and_find_element(LoginLocators.ENTER_BUTTON)
+        base_page.execute_script("arguments[0].click();", element)
+
+    @allure.step("Ожидание загрузки страницы")
+    def wait_for_load_window(self, link):
+        WebDriverWait(self.driver, 10).until(expected_conditions.url_to_be(link))
+
+    @allure.step("Ожидание кликабельности локатора")
+    def wait_element_clickable(self, locator):
+        WebDriverWait(self.driver, 5).until(EC.element_to_be_clickable(locator))
