@@ -9,6 +9,4 @@ class AccountLocators:
     PERSONAL_AREA_TEXT = By.XPATH, ("//p[contains(text(),"
                                     "'В этом разделе вы можете изменить "
                                     "свои персональные данные')]")  # Тест из личного кабинета
-
-    #
     PERSONAL_AREA_BUTTON = By.XPATH, "//p[contains(text(), 'Личный Кабинет')]"  # Кнопка личного кабинета
