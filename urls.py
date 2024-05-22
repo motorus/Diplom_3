@@ -1,13 +1,7 @@
 class URLS:
 
     MAIN = 'https://stellarburgers.nomoreparties.site/'  # главная страница
-    #REG = 'https://stellarburgers.nomoreparties.site/register'  # регистрация
-    #LOGIN = 'https://stellarburgers.nomoreparties.site/login'  # авторизация
-    #FORGOT_PASS = 'https://stellarburgers.nomoreparties.site/forgot-password'  # восстановление пароля
-    #RESET_PASS = 'https://stellarburgers.nomoreparties.site/reset-password'  # восстановление пароля
-    #PERSONAL_AREA = 'https://stellarburgers.nomoreparties.site/account/profile'
-    #ORDER_HISTORY = 'https://stellarburgers.nomoreparties.site/account/order-history'
-    #ORDER_FEED = 'https://stellarburgers.nomoreparties.site/feed'
+
 
     REG         = MAIN + 'register'  # регистрация
     LOGIN       = MAIN + 'login'  # авторизация
