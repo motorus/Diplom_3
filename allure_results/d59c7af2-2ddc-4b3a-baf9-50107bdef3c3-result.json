@@ -1,0 +1,1 @@
+{"name": "Проверка нажатия на кнопку 'История заказов'", "status": "skipped", "parameters": [{"name": "driver", "value": "'chrome'"}], "start": 1716385300483, "stop": 1716385300483, "uuid": "aad04f68-6d9e-4566-8ac9-c3fed4dd9132", "testCaseId": "4b4eee01e4ae99082b2c52b467646bf4", "fullName": "tests.test_account_page.TestAccount#test_click_to_order_history"}
